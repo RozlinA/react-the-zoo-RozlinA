@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import { IAnimal } from "../models/IAnimal";
 
 export const useAxios = () => {
-  const [animals, setAnimals] = useState<IAnimal[]>([]);
+  const animalsFromLocalStorage: IAnimal[] = JSON.parse(
+    localStorage.getItem("animals") || "[]"
+  );
+  const [animals, setAnimals] = useState<IAnimal[]>(animalsFromLocalStorage);
 
   useEffect(() => {
-    if (animals.length > 0) return;
+    if (localStorage.getItem("animals")) return;
     const getData = async () => {
       const response = await axios.get<IAnimal[]>(
         "https://animals.azurewebsites.net/api/animals"
