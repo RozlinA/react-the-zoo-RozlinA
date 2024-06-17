@@ -1,0 +1,11 @@
+
+.animals-section {
+  width: 80vw;
+ 
+}
+
+.animal-item {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 15px;
+}
