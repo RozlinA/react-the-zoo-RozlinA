@@ -2,11 +2,29 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IAnimal } from "../models/IAnimal";
 
-export const useAxios = () => {
+export const useAnimals = () => {
   const animalsFromLocalStorage: IAnimal[] = JSON.parse(
     localStorage.getItem("animals") || "[]"
   );
   const [animals, setAnimals] = useState<IAnimal[]>(animalsFromLocalStorage);
+
+  const getAnimalById = (id: number) => {
+    const animal = animals.find((animal) => animal.id === id);
+    return animal;
+  };
+
+  const feedAnimal = (animal: IAnimal) => {
+    const updatedAnimal = animals.map((a) => {
+      if (a.id === animal.id) {
+        return { ...animal, isFed: true, lastFed: Date() };
+      } else {
+        return a;
+      }
+    });
+    localStorage.setItem("animals", JSON.stringify(updatedAnimal));
+    setAnimals(updatedAnimal);
+    console.log(updatedAnimal);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("animals")) return;
@@ -19,5 +37,5 @@ export const useAxios = () => {
     };
     getData();
   }, [animals]);
-  return { animals };
+  return { animals, getAnimalById, feedAnimal };
 };

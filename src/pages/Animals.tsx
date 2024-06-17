@@ -1,9 +1,9 @@
 import { ShowAnimals } from "../components/ShowAnimals";
-import { useAxios } from "../hooks/useAxios"
+import { useAnimals } from "../hooks/useAnimals"
 import "./Animals.css"
 
 export const Animals = () => {
-  const {animals} = useAxios();
+  const {animals} = useAnimals();
 
   return <>
     <section className="animals-section">
