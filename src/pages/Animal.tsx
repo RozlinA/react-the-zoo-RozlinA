@@ -6,13 +6,23 @@ export const Animal = () => {
 
   const {animalId} = useParams();
 
+
   let animal;
   if (animalId) {
    animal = getAnimalById(+animalId);
   }
 
   console.log("ANIMAL:", animal);
-  
+
+  if (animal){
+    const lastFed = new Date(animal.lastFed);
+    const currentDate = new Date();
+    const hoursSinceLastFed = ((currentDate.getTime()) - (lastFed.getTime())) / 3600000;
+
+    if(hoursSinceLastFed > 3){
+      feedAnimal(animal);
+    }
+  }
 
   return <>
     {animal && <>

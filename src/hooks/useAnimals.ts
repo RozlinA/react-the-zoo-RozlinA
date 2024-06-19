@@ -16,7 +16,11 @@ export const useAnimals = () => {
   const feedAnimal = (animal: IAnimal) => {
     const updatedAnimal = animals.map((a) => {
       if (a.id === animal.id) {
-        return { ...animal, isFed: true, lastFed: Date() };
+        return {
+          ...animal,
+          isFed: !animal.isFed,
+          lastFed: Date.now(),
+        };
       } else {
         return a;
       }
