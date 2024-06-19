@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAnimals } from "../hooks/useAnimals"
+import { feedingTime } from "../services/feedingTime";
 
 export const Animal = () => {
   const {getAnimalById, feedAnimal} = useAnimals();
@@ -12,17 +13,30 @@ export const Animal = () => {
    animal = getAnimalById(+animalId);
   }
 
+  let isAnimalFed;
+  if (animal){
+    isAnimalFed = feedingTime(animal);
+  }
+  
+
   console.log("ANIMAL:", animal);
 
-  if (animal){
-    const lastFed = new Date(animal.lastFed);
-    const currentDate = new Date();
-    const hoursSinceLastFed = ((currentDate.getTime()) - (lastFed.getTime())) / 3600000;
+  // let hoursSinceLastFed = 0;
 
-    if(hoursSinceLastFed > 3){
-      feedAnimal(animal);
-    }
-  }
+  // if (animal){
+  //   const lastFed = new Date(animal.lastFed);
+  //   const currentDate = new Date();
+  //   hoursSinceLastFed = ((currentDate.getTime()) - (lastFed.getTime())) / 3600000;
+
+  //   // if(hoursSinceLastFed > 3){
+  //   //   animal.isFed = false;
+  //   // }
+  // }
+
+  
+
+  console.log("Hours:", isAnimalFed);
+  
 
   return <>
     {animal && <>
@@ -31,8 +45,8 @@ export const Animal = () => {
         <img src={animal.imageUrl} alt={animal.name} />
         <p>{animal.shortDescription}</p>
         <p>Fakta: {animal.longDescription}</p>
-        <button onClick={() => feedAnimal(animal)} disabled={animal.isFed===true}>Mata {animal.name}</button>
-        {animal.isFed === true && (
+        <button onClick={() => feedAnimal(animal)} disabled={!isAnimalFed}>Mata {animal.name}</button>
+        {!isAnimalFed && (
         <>
           <p>Tack! Nu är {animal.name} mätt igen :)</p>
           <p>Senast matad: {animal.lastFed}</p>

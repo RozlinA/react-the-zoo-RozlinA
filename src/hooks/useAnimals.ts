@@ -18,8 +18,11 @@ export const useAnimals = () => {
       if (a.id === animal.id) {
         return {
           ...animal,
-          isFed: !animal.isFed,
-          lastFed: Date.now(),
+          isFed: true,
+          lastFed:
+            new Date().toLocaleDateString() +
+            " " +
+            new Date().toLocaleTimeString(),
         };
       } else {
         return a;
