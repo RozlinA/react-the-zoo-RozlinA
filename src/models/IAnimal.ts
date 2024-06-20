@@ -3,7 +3,7 @@ export interface IAnimal {
   name: string;
   imageUrl: string;
   isFed: boolean;
-  lastFed: number;
+  lastFed: string;
   yearOfBirth: number;
   shortDescription: string;
   longDescription: string;

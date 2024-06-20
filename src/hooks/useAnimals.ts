@@ -16,7 +16,14 @@ export const useAnimals = () => {
   const feedAnimal = (animal: IAnimal) => {
     const updatedAnimal = animals.map((a) => {
       if (a.id === animal.id) {
-        return { ...animal, isFed: true, lastFed: Date() };
+        return {
+          ...animal,
+          isFed: true,
+          lastFed:
+            new Date().toLocaleDateString() +
+            " " +
+            new Date().toLocaleTimeString(),
+        };
       } else {
         return a;
       }
