@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useAnimals } from "../hooks/useAnimals"
 import { feedingTime } from "../services/feedingTime";
+import "./Animal.css"
 
 export const Animal = () => {
   const {getAnimalById, feedAnimal} = useAnimals();
@@ -39,12 +40,15 @@ export const Animal = () => {
   
 
   return <>
+    <section className="animal-section">
     {animal && <>
       <h2>{animal.name}</h2>
         <p>Födelseår: {animal.yearOfBirth}</p>
         <img src={animal.imageUrl} alt={animal.name} />
+        <h4>Om {animal.name}</h4>
         <p>{animal.shortDescription}</p>
-        <p>Fakta: {animal.longDescription}</p>
+        <h5>Fakta</h5>
+        <p>{animal.longDescription}</p>
         <button onClick={() => feedAnimal(animal)} disabled={!isAnimalFed}>Mata {animal.name}</button>
         {!isAnimalFed && (
         <>
@@ -53,5 +57,6 @@ export const Animal = () => {
         </>
       )}
     </>}
+    </section>
   </>
 }
